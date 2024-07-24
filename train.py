@@ -300,8 +300,8 @@ def validate(val_loader, net, criterion, optim, curr_epoch, writer):
 
     iou_acc = 0
     total_mae = []
-    total_bers = np.zeros((args.dataset_cls.num_classes,), dtype=np.float)
-    total_bers_count = np.zeros((args.dataset_cls.num_classes,), dtype=np.float)
+    total_bers = np.zeros((args.dataset_cls.num_classes,), dtype=float)
+    total_bers_count = np.zeros((args.dataset_cls.num_classes,), dtype=float)
 
     dump_images = []
 

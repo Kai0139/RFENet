@@ -25,14 +25,14 @@ def colorize_mask(mask):
     new_mask.putpalette(palette)
     return new_mask
 
-def make_dataset(quality, mode):
+def make_dataset(quality, mode, subdir="hard"):
     all_tokens = []
 
     assert quality == 'semantic'
     assert mode in ['train', 'validation', 'test', 'test_easy', 'test_hard','validation_easy','validation_hard']
 
-    image_path = osp.join(root, mode, 'images')
-    mask_path = osp.join(root, mode, 'masks')
+    image_path = osp.join(root, mode, subdir, 'images')
+    mask_path = osp.join(root, mode, subdir, 'masks')
 
     c_tokens = os.listdir(image_path)
     c_tokens.sort()
@@ -122,7 +122,7 @@ class Trans10kDataset(data.Dataset):
         contour, _ = cv2.findContours(tmp, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         boundary = np.zeros_like(tmp)
         boundary = cv2.drawContours(boundary, contour, -1, 1, thicky)
-        boundary = boundary.astype(np.float)
+        boundary = boundary.astype(float)
         return boundary
 
     @staticmethod

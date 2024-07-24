@@ -39,7 +39,7 @@ __C.DATASET.PMD_DIR = './data/PMD'
 # GSD Dataset Dir Location
 __C.DATASET.GSD_DIR = './data/GSD'
 # Trans10k Dataset Dir Location
-__C.DATASET.TRANS10K_DIR = './data/Trans10k'
+__C.DATASET.TRANS10K_DIR = '/home/zhangkai/data/glass_seg/trans10k/'
 
 # Number of splits to support
 __C.DATASET.CV_SPLITS = 3

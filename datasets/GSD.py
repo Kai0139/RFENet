@@ -121,7 +121,7 @@ class GSDDateset(data.Dataset):
         contour, _ = cv2.findContours(tmp, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         boundary = np.zeros_like(tmp)
         boundary = cv2.drawContours(boundary, contour, -1, 1, thicky)
-        boundary = boundary.astype(np.float)
+        boundary = boundary.astype(float)
         return boundary
 
     @staticmethod

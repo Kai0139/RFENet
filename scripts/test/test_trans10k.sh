@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
-echo "Running inference on" ${1}
-echo "Saving Results :" ${2}
+OUTPUT_DIR=/home/zhangkai/data/glass_seg/trans10k/results/rfenet/
+CKPT_PATH=/home/zhangkai/repos/glass_seg/RFENet/weights/best_trans10k.pth
+DATA_DIR=/home/zhangkai/data/glass_seg/trans10k/
+
+echo "Running inference on" ${DATA_DIR}
+echo "Saving Results :" ${OUTPUT_DIR}
 python3 eval.py \
 	--dataset Trans10k \
+    --dataset_dir ${DATA_DIR} \
     --arch network.RFENet.RFENet_resnet50_os8 \
     --inference_mode  whole \
     --single_scale \
@@ -13,10 +18,10 @@ python3 eval.py \
     --mode semantic \
     --with_mae_ber \
     --no_flip \
-    --ckpt_path ${2} \
-    --snapshot ${1} \
+    --ckpt_path ${CKPT_PATH} \
+    --snapshot ${CKPT_PATH} \
     --num_cascade 4 \
     --edge_num_points 256 \
     --region_num_points 256 \
     --dump_images \
-    
+    --output_dir ${OUTPUT_DIR}

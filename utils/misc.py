@@ -620,8 +620,8 @@ def cal_mae(pred, label):
 
 
 def cal_ber(pred, label, num_classes):
-    bers = np.zeros((num_classes,), dtype=np.float)
-    bers_count = np.zeros((num_classes,), dtype=np.float)
+    bers = np.zeros((num_classes,), dtype=float)
+    bers_count = np.zeros((num_classes,), dtype=float)
     bers_count[0] = 1
 
     for cls_index in range(num_classes):

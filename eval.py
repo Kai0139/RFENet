@@ -64,6 +64,7 @@ parser.add_argument('--exp_name', type=str, default=None)
 parser.add_argument('--snapshot', type=str, default='')
 parser.add_argument('--log_root', type=str, default='', help='the logging root path.')
 parser.add_argument('--ckpt_path', type=str, default=None)
+parser.add_argument('--output_dir', type=str, default=None)
 parser.add_argument('-im', '--inference_mode', type=str, default='sliding',
                     help='sliding or pooling or whole')
 parser.add_argument('--test_mode', action='store_true', default=False,
@@ -197,7 +198,7 @@ def reverse_mapping(i, ctr, input_img, mapping, que, flip, origw, origh):
         full_probs[:, y1:y2, x1:x2] += average
         ctr = ctr + 1
 
-    full_probs = full_probs / count_predictions.astype(np.float)
+    full_probs = full_probs / count_predictions.astype(float)
     out_temp = []
     out_y = []
     t_list = []
@@ -500,8 +501,8 @@ class RunEval():
                                   self.dataset_cls.num_classes))
             if self.with_mae_ber:
                 self.total_mae = []
-                self.total_bers = np.zeros((self.dataset_cls.num_classes,), dtype=np.float)
-                self.total_bers_count = np.zeros((self.dataset_cls.num_classes,), dtype=np.float)
+                self.total_bers = np.zeros((self.dataset_cls.num_classes,), dtype=float)
+                self.total_bers_count = np.zeros((self.dataset_cls.num_classes,), dtype=float)
         else:
             self.hist = None
 
@@ -620,15 +621,19 @@ def main():
     else:
         scales = [float(x) for x in args.scales.split(',')]
 
-    output_dir = os.path.join(args.ckpt_path, args.exp_name, args.split)
+    output_dir = args.output_dir
+    # output_dir = os.path.join(args.ckpt_path, args.exp_name, args.split)
     os.makedirs(output_dir, exist_ok=True)
     save_log('eval', output_dir, date_str)
     logging.info("Network Arch: %s", args.arch)
     logging.info("CV split: %d", args.cv_split)
     logging.info("Exp_name: %s", args.exp_name)
     logging.info("Ckpt path: %s", args.ckpt_path)
+    logging.info("Output dir: %s", output_dir)
     logging.info("Scales : %s", ' '.join(str(e) for e in scales))
     logging.info("Inference mode: %s", args.inference_mode)
+
+    # sys.exit()
 
     metrics = args.dataset != 'video_folder'
     test_loader = setup_loader()

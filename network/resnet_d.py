@@ -271,7 +271,7 @@ class ResNet(nn.Module):
         return x
 
 
-def resnet50(pretrained=True, **kwargs):
+def resnet50(pretrained=False, **kwargs):
     """Constructs a ResNet-50 model.
 
     Args:
@@ -279,7 +279,9 @@ def resnet50(pretrained=True, **kwargs):
     """
     model = ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(torch.load("./pretrained_models/resnet50-deep.pth", map_location='cpu'))
+        # model.load_state_dict(torch.load("./pretrained_models/resnet50-deep.pth", map_location='cpu'))
+        print(torch.load("./weights/Trans10k_resnet50_os8.pth", map_location='cpu')["state_dict"].keys())
+        model.load_state_dict(torch.load("./weights/Trans10k_resnet50_os8.pth", map_location='cpu')["state_dict"])
     return model
 
 
